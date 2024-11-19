@@ -51,7 +51,7 @@ export default {
 			cars: [
 				{
 					titleText: "Penetrator - 80's",
-					imageUrl: require("@/assets/car1.gif"),
+					imageUrl: require("@/assets/car_model/device_ant.gif"),
 					paragraphs: [
 						"Год выпуска: 1968 - 1975",
 						"Максимальная скорость: 170 км/ч ",
@@ -228,12 +228,6 @@ export default {
 	outline: none;
 }
 
-.car-title {
-	font-size: 3rem;
-	color: rgb(0, 180, 0);
-	margin-bottom: 20px;
-}
-
 .content {
 	display: flex;
 	align-items: center;
@@ -241,22 +235,11 @@ export default {
 	width: 80%;
 }
 
-.image-container img {
-	max-width: 100%;
-	max-height: 300px;
-	border-radius: 10px;
-}
-
-.car-details p span {
-	font-size: 1.7vw;
-	color: rgb(0, 180, 0);
-}
-
 .cursor {
 	display: inline-block;
 	width: 10px;
 	height: 1.2rem;
-	background: rgb(0, 180, 0);
+	background: #f70000;
 	animation: blink 0.8s steps(1) infinite;
 }
 
@@ -265,7 +248,6 @@ export default {
 		opacity: 0;
 	}
 }
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Pixelify+Sans:wght@400..700&display=swap");
 .led-container {
 	display: flex;
 	justify-content: center;
@@ -302,7 +284,7 @@ export default {
 	/* Добавляем шум */
 	background-image: url("@/assets/noise4.gif");
 	background-repeat: repeat;
-	opacity: 0.01;
+	opacity: 0.04;
 }
 
 .led-container::after {
@@ -333,7 +315,7 @@ export default {
 	display: inline-block;
 	color: red;
 	font-size: 10rem;
-	font-family: "Pixelify Sans", serif;
+	font-family: "Tiny5", sans-serif;
 	letter-spacing: 5px;
 	animation: scroll-text 8s linear infinite;
 }
