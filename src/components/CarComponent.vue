@@ -8,7 +8,11 @@
 		</div>
 
 		<!-- Контент машин -->
-		<div v-show="currentIndex !== -1" class="page">
+		<div
+			v-show="currentIndex !== -1"
+			class="page"
+			:style="{ padding: getPaddingStyle() }"
+		>
 			<h1 class="car-title" ref="typingText"></h1>
 			<div class="content">
 				<figure class="image-container">
@@ -36,6 +40,8 @@
 export default {
 	data() {
 		return {
+			paddingValues: [0, 0, 0, 0], // top, right, bottom, left
+			selectedPaddingIndex: 0,
 			currentIndex: -1,
 			text: "GODS OF ROADS ",
 			paragraphRefs: [],
@@ -66,21 +72,42 @@ export default {
 			],
 		};
 	},
-
 	computed: {
 		currentCar() {
 			return this.cars[this.currentIndex] || {};
 		},
 	},
-
 	methods: {
+		/** Слушатель нажатия на цифры  */
 		handleKeyPress(event) {
 			if (event.key === "1") {
 				this.switchContent(-1);
 			} else if (event.key === "2") {
 				this.switchContent(1);
+			} else if (event.key === "4") {
+				this.updatePadding(-5);
+			} else if (event.key === "5") {
+				this.updatePadding(5);
+			} else if (event.key === "6") {
+				this.selectedPaddingIndex = (this.selectedPaddingIndex + 1) % 4;
 			}
 		},
+
+		/** Обновление отступа  */
+		updatePadding(amount) {
+			const newValue =
+				this.paddingValues[this.selectedPaddingIndex] + amount;
+			if (newValue >= 0) {
+				this.paddingValues[this.selectedPaddingIndex] = newValue;
+			}
+		},
+
+		/** Возвращаем в стиль настроенный отступ  */
+		getPaddingStyle() {
+			return this.paddingValues.map((v) => `${v}px`).join(" ");
+		},
+
+		/** Смена печати контента  */
 		switchContent(direction) {
 			this.isTyping = false;
 
@@ -88,11 +115,8 @@ export default {
 			if (this.typingController) {
 				this.typingController.abort();
 			}
-
-			// Полностью очищаем старое содержимое
 			this.resetState();
 
-			// Изменяем текущий индекс
 			this.currentIndex += direction;
 
 			if (this.currentIndex < -1) {
@@ -106,25 +130,21 @@ export default {
 				this.startTyping();
 			}
 		},
+
+		/** Ресет данных о машине  */
 		resetState() {
 			if (this.$refs.typingText) {
 				this.$refs.typingText.innerHTML = "";
 			}
-
 			for (const ref of this.paragraphRefs) {
 				if (ref) {
 					ref.innerHTML = "";
 				}
 			}
-
-			const carDetailsElement = document.querySelector(".car-info");
-			if (carDetailsElement) {
-				carDetailsElement.innerHTML = ""; // Полностью очищаем содержимое
-			}
-
-			// Сбрасываем ссылки на параграфы
 			this.paragraphRefs = [];
 		},
+
+		/** Анимация печати  */
 		async startTyping() {
 			this.isTyping = true;
 
@@ -133,29 +153,28 @@ export default {
 			const signal = this.typingController.signal;
 
 			const text = this.currentCar?.titleText?.split("") || [];
-			console.log("text:", text);
 			const target = this.$refs.typingText;
-			if (target == undefined) target.innerHTML = "";
+
+			if (!target) {
+				console.warn("Ref 'typingText' is undefined. Skipping typing.");
+				return;
+			}
+
 			// Очищаем содержимое перед началом печатания
-			if (target) target.innerHTML = "";
+			target.innerHTML = "";
 
 			try {
-				// Печатаем заголовок
 				let content = "";
 				for (const char of text) {
 					if (signal.aborted) throw new Error("Typing aborted");
 					content += char;
-					if (target) {
-						target.innerHTML =
-							content + '<span class="cursor"></span>';
-					}
+					target.innerHTML = content + '<span class="cursor"></span>';
 					await this.sleep(this.typingSpeed);
 				}
-				if (target) target.innerHTML = content;
+				target.innerHTML = content;
 
 				if (!Array.isArray(this.currentCar?.paragraphs)) return;
 
-				// Печатаем параграфы
 				for (let i = 0; i < this.currentCar.paragraphs.length; i++) {
 					if (signal.aborted) throw new Error("Typing aborted");
 
@@ -163,24 +182,19 @@ export default {
 						this.currentCar.paragraphs[i].split("");
 					const paragraphTarget = this.paragraphRefs[i];
 
-					// Очищаем содержимое текущего параграфа
-					if (paragraphTarget) paragraphTarget.innerHTML = "";
+					if (!paragraphTarget) continue;
 
+					paragraphTarget.innerHTML = "";
 					let paragraphContent = "";
 					for (const char of paragraphText) {
 						if (signal.aborted) throw new Error("Typing aborted");
 						paragraphContent += char;
-						if (paragraphTarget) {
-							paragraphTarget.innerHTML =
-								paragraphContent +
-								'<span class="cursor"></span>';
-						}
+						paragraphTarget.innerHTML =
+							paragraphContent + '<span class="cursor"></span>';
 						await this.sleep(this.typingSpeed);
 					}
 
-					if (paragraphTarget) {
-						paragraphTarget.innerHTML = paragraphContent;
-					}
+					paragraphTarget.innerHTML = paragraphContent;
 					await this.sleep(300);
 				}
 			} catch (error) {
