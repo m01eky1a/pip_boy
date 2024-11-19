@@ -48,6 +48,7 @@ export default {
 			typingSpeed: 20,
 			isTyping: false,
 			typingController: null,
+			isFullscreen: false,
 			cars: [
 				{
 					titleText: "Penetrator - 80's",
@@ -77,6 +78,7 @@ export default {
 			return this.cars[this.currentIndex] || {};
 		},
 	},
+
 	methods: {
 		/** Слушатель нажатия на цифры  */
 		handleKeyPress(event) {
@@ -84,6 +86,8 @@ export default {
 				this.switchContent(-1);
 			} else if (event.key === "2") {
 				this.switchContent(1);
+			} else if (event.key === "3") {
+				this.toggleFullscreen();
 			} else if (event.key === "4") {
 				this.updatePadding(-5);
 			} else if (event.key === "5") {
@@ -92,7 +96,35 @@ export default {
 				this.selectedPaddingIndex = (this.selectedPaddingIndex + 1) % 4;
 			}
 		},
+		toggleFullscreen() {
+			const doc = document.documentElement;
 
+			if (!this.isFullscreen) {
+				// Включаем полноэкранный режим
+				if (doc.requestFullscreen) {
+					doc.requestFullscreen();
+				} else if (doc.mozRequestFullScreen) {
+					doc.mozRequestFullScreen();
+				} else if (doc.webkitRequestFullscreen) {
+					doc.webkitRequestFullscreen();
+				} else if (doc.msRequestFullscreen) {
+					doc.msRequestFullscreen();
+				}
+			} else {
+				// Выходим из полноэкранного режима
+				if (document.exitFullscreen) {
+					document.exitFullscreen();
+				} else if (document.mozCancelFullScreen) {
+					document.mozCancelFullScreen();
+				} else if (document.webkitExitFullscreen) {
+					document.webkitExitFullscreen();
+				} else if (document.msExitFullscreen) {
+					document.msExitFullscreen();
+				}
+			}
+
+			this.isFullscreen = !this.isFullscreen;
+		},
 		/** Обновление отступа  */
 		updatePadding(amount) {
 			const newValue =
@@ -226,13 +258,6 @@ export default {
 	justify-content: center;
 	color: white;
 	outline: none;
-}
-
-.content {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 80%;
 }
 
 .cursor {
