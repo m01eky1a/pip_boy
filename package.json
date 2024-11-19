@@ -1,0 +1,43 @@
+{
+	"name": "frontend",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"serve": "vue-cli-service serve",
+		"build": "vue-cli-service build",
+		"lint": "vue-cli-service lint"
+	},
+	"dependencies": {
+		"@kyvg/vue3-notification": "^3.0.2",
+		"axios": "^1.6.0",
+		"bootstrap": "^5.3.2",
+		"core-js": "^3.33.2",
+		"mitt": "^3.0.1",
+		"moment": "^2.29.4",
+		"moment-with-locales-es6": "^1.0.1",
+		"three": "^0.158.0",
+		"three-full": "^28.0.2",
+		"typescript": "^5.2.2",
+		"vue": "^3.3.7",
+		"vue-axios": "^3.5.2",
+		"vue-router": "^4.2.5",
+		"vuex": "^4.1.0"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.23.2",
+		"@babel/eslint-parser": "^7.22.15",
+		"@vue/cli-plugin-babel": "~5.0.8",
+		"@vue/cli-plugin-unit-jest": "^5.0.8",
+		"@vue/cli-service": "~5.0.8",
+		"sass": "^1.69.5",
+		"sass-loader": "^13.3.2",
+		"vite": "^4.5.0",
+		"webpack": "^5.89.0"
+	},
+	"browserslist": [
+		"> 1%",
+		"last 2 versions",
+		"not dead",
+		"not ie 11"
+	]
+}
