@@ -16,7 +16,7 @@
 			<h1 class="car-title" ref="typingText"></h1>
 			<div class="content">
 				<figure class="image-container">
-					<img :src="currentCar.imageUrl" alt="Car Image" />
+					<img :src="currentCar.imageUrl" />
 				</figure>
 				<section class="text-container">
 					<ul class="car-details">
@@ -31,6 +31,12 @@
 						</p>
 					</ul>
 				</section>
+			</div>
+		</div>
+
+		<div v-show="currentIndex === 5" class="led-container">
+			<div class="led-display">
+				<img src="currentCar.imageUrl" alt="Car Image" />
 			</div>
 		</div>
 	</div>
@@ -99,6 +105,9 @@ export default {
 						"Лошадиные силы: 700",
 						"Расход топлива: 12 л/100 км ",
 					],
+				},
+				{
+					imageUrl: require("@/assets/QR.png"),
 				},
 			],
 		};

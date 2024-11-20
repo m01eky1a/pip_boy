@@ -71,6 +71,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	transition: width 0.3s ease;
 	width: 90%;
 	z-index: 1;
 	margin-top: 20px;
@@ -78,7 +79,7 @@
 }
 
 .image-container {
-	width: 50%;
+	width: 45%;
 	display: flex;
 	justify-content: center;
 }
@@ -92,7 +93,8 @@
 .text-container {
 	flex: 1;
 	text-align: left;
-	width: 100%;
+	width: 45%;
+	font-size: calc(1vw + 0.5rem);
 }
 
 .car-title {
@@ -109,8 +111,8 @@
 }
 
 .car-details p span {
+	font-size: calc(0.5vw + 0.8rem);
 	font-family: "Tiny5", sans-serif;
-	font-size: clamp(19px, 2.3vw, 45px);
 	color: #f70000;
 }
 ::v-deep .cursor {
