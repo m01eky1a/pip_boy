@@ -107,7 +107,7 @@
 	margin-right: 75px;
 }
 .qr-title { 
-    width: 55%;
+    width: 25%;
     font-family: "Tiny5", sans-serif;
     color: #f70000;
 	font-size: clamp(40px, 5vw, 70px);

@@ -59,7 +59,7 @@
 	width: 100%;
 	overflow: hidden;
 	white-space: nowrap;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 /* Анимация бегущей строки */
 @keyframes scroll-text {
