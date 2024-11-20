@@ -18,7 +18,10 @@
 				<figure class="image-container">
 					<img :src="currentCar.imageUrl" />
 				</figure>
-
+				<div v-show="currentIndex == 5" class="qr-title">
+					СДЕЛАТЬ <br />
+					ЗАЕЗД
+				</div>
 				<section class="text-container">
 					<div
 						class="car-details"
@@ -35,12 +38,6 @@
 						</div>
 					</div>
 				</section>
-			</div>
-		</div>
-
-		<div v-show="currentIndex === 5" class="led-container">
-			<div class="led-display">
-				<img src="currentCar.imageUrl" alt="Car Image" />
 			</div>
 		</div>
 	</div>
@@ -113,7 +110,14 @@ export default {
 					],
 				},
 				{
+					titleText: "",
 					imageUrl: require("@/assets/QR.png"),
+					paragraphs: [
+						"Год выпуска: 1985 - 1990",
+						"Максимальная скорость: 210 км/ч ",
+						"Лошадиные силы: 700",
+						"Расход топлива: 12 л/100 км ",
+					],
 				},
 			],
 		};
@@ -133,7 +137,7 @@ export default {
 		dynamicFontSize() {
 			return `${Math.max(
 				this.baseFontSize * (this.textContainerWidth / 500),
-				10
+				11
 			)}px`;
 		},
 	},
