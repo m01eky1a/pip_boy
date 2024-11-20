@@ -103,6 +103,9 @@ export default {
 			],
 		};
 	},
+	mounted() {
+		this.$el.focus();
+	},
 	computed: {
 		currentCar() {
 			return this.cars[this.currentIndex] || {};
@@ -252,7 +255,7 @@ export default {
 						if (signal.aborted) throw new Error("Typing aborted");
 						paragraphContent += char;
 						paragraphTarget.innerHTML =
-							paragraphContent + '<span class="cursor"></span>';
+							paragraphContent + '<span class="cursor">_</span>';
 						await this.sleep(this.typingSpeed);
 					}
 
@@ -288,14 +291,6 @@ export default {
 	justify-content: center;
 	color: white;
 	outline: none;
-}
-
-.cursor {
-	display: inline-block;
-	width: 10px;
-	height: 1.2rem;
-	background: #f70000;
-	animation: blink 0.8s steps(1) infinite;
 }
 
 @keyframes blink {

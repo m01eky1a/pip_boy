@@ -113,16 +113,16 @@
 	font-size: clamp(19px, 2.3vw, 45px);
 	color: #f70000;
 }
-
-/* Стиль для мигающего курсора с использованием deep селектора */
 ::v-deep .cursor {
 	display: inline-block;
 	width: 10px;
 	height: 1em;
-	color: #f70000;
+	color: #ffffff;
 	animation: blink 0.8s steps(1) infinite;
 	vertical-align: bottom;
 }
+/* Стиль для мигающего курсора с использованием deep селектора */
+
 
 @keyframes blink {
 	50% {
