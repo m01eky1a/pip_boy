@@ -18,9 +18,13 @@
 				<figure class="image-container">
 					<img :src="currentCar.imageUrl" />
 				</figure>
+
 				<section class="text-container">
-					<ul class="car-details">
-						<p
+					<div
+						class="car-details"
+						:style="{ fontSize: dynamicFontSize }"
+					>
+						<div
 							v-for="(paragraph, index) in currentCar.paragraphs"
 							:key="index"
 							class="car-info"
@@ -28,8 +32,8 @@
 							<span
 								:ref="(el) => setParagraphRefs(el, index)"
 							></span>
-						</p>
-					</ul>
+						</div>
+					</div>
 				</section>
 			</div>
 		</div>
@@ -46,7 +50,7 @@
 export default {
 	data() {
 		return {
-			paddingValues: [0, 0, 0, 0], // top, right, bottom, left
+			paddingValues: [0, 0, 0, 0],
 			selectedPaddingIndex: 0,
 			currentIndex: -1,
 			text: "GODS OF ROADS ",
@@ -55,6 +59,8 @@ export default {
 			isTyping: false,
 			typingController: null,
 			isFullscreen: false,
+			textContainerWidth: 0,
+			baseFontSize: 18,
 			cars: [
 				{
 					titleText: "Penetrator - 80's",
@@ -114,10 +120,21 @@ export default {
 	},
 	mounted() {
 		this.$el.focus();
+		this.updateTextContainerWidth();
+		window.addEventListener("resize", this.updateTextContainerWidth);
+	},
+	beforeDestroy() {
+		window.removeEventListener("resize", this.updateTextContainerWidth);
 	},
 	computed: {
 		currentCar() {
 			return this.cars[this.currentIndex] || {};
+		},
+		dynamicFontSize() {
+			return `${Math.max(
+				this.baseFontSize * (this.textContainerWidth / 500),
+				10
+			)}px`;
 		},
 	},
 
@@ -136,6 +153,12 @@ export default {
 				this.updatePadding(5);
 			} else if (event.key === "6") {
 				this.selectedPaddingIndex = (this.selectedPaddingIndex + 1) % 4;
+			}
+		},
+		updateTextContainerWidth() {
+			const textContainer = this.$el.querySelector(".text-container");
+			if (textContainer) {
+				this.textContainerWidth = textContainer.offsetWidth;
 			}
 		},
 		toggleFullscreen() {
@@ -173,6 +196,7 @@ export default {
 				this.paddingValues[this.selectedPaddingIndex] + amount;
 			if (newValue >= 0) {
 				this.paddingValues[this.selectedPaddingIndex] = newValue;
+				this.$nextTick(this.updateTextContainerWidth);
 			}
 		},
 
@@ -291,101 +315,5 @@ export default {
 
 <style scoped>
 @import "@/css/CarPageStyle.css";
-
-.page {
-	background-color: #1f1e1e;
-	height: 100vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: white;
-	outline: none;
-}
-
-@keyframes blink {
-	50% {
-		opacity: 0;
-	}
-}
-.led-container {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	background-color: #1f1e1e;
-	box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 0, 0, 0.5),
-		0 0 100px 20px rgba(0, 0, 0, 0.8);
-	background: radial-gradient(
-			ellipse at center,
-			rgba(0, 0, 0, 0.6),
-			transparent 70%
-		),
-		rgba(31, 30, 30, 1);
-	transform: scale(1.05);
-	transform-origin: center;
-}
-
-.led-container::before {
-	content: "";
-	position: absolute;
-	top: -10%;
-	left: -10%;
-	width: 120%;
-	height: 120%;
-	pointer-events: none;
-	background: radial-gradient(
-		ellipse at center,
-		rgba(0, 0, 0, 0.3),
-		transparent 70%
-	);
-	transform: translateZ(0);
-
-	/* Добавляем шум */
-	background-image: url("@/assets/noise4.gif");
-	background-repeat: repeat;
-	opacity: 0.04;
-}
-
-.led-container::after {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	pointer-events: none;
-	background: repeating-linear-gradient(
-		to bottom,
-		rgba(0, 0, 0, 0),
-		rgba(0, 0, 0, 0) 1px,
-		rgba(0, 0, 0, 0.1) 1px,
-		rgba(0, 0, 0, 0.1) 2px
-	);
-	z-index: 2;
-}
-
-.led-display {
-	width: 100%;
-	overflow: hidden;
-	white-space: nowrap;
-}
-
-.scrolling-text {
-	display: inline-block;
-	color: red;
-	font-size: 10rem;
-	font-family: "Tiny5", sans-serif;
-	letter-spacing: 5px;
-	animation: scroll-text 8s linear infinite;
-}
-
-/* Анимация бегущей строки */
-@keyframes scroll-text {
-	0% {
-		transform: translateX(200%);
-	}
-	100% {
-		transform: translateX(-100%);
-	}
-}
+@import "@/css/LedStyle.css";
 </style>

@@ -82,11 +82,13 @@
 	width: 45%;
 	display: flex;
 	justify-content: center;
+	min-width: 30%;
 }
 
 .image-container img {
 	max-width: 100%;
 	max-height: 400px;
+	min-width: 30%;
 	border-radius: 10px;
 }
 
@@ -100,21 +102,24 @@
 .car-title {
 	font-family: "Tiny5", sans-serif;
 	font-size: clamp(45px, 5vw, 70px);
-	margin-bottom: 30px;
 	color: #f70000;
 	text-align: center;
 }
-
+.car-info { 
+	margin-block-start: 5%;
+    margin-block-end: 5%;
+}
 .car-details {
 	display: block;
 	white-space: nowrap;
 }
 
-.car-details p span {
+.car-details  {
 	font-size: calc(0.5vw + 0.8rem);
 	font-family: "Tiny5", sans-serif;
 	color: #f70000;
 }
+
 ::v-deep .cursor {
 	display: inline-block;
 	width: 10px;
