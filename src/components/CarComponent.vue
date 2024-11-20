@@ -13,10 +13,12 @@
 			class="page"
 			:style="{ padding: getPaddingStyle() }"
 		>
-			<h1 class="car-title" ref="typingText"></h1>
+			<div>
+				<h1 class="car-title" ref="typingText"></h1>
+			</div>
 			<div class="content">
 				<figure class="image-container">
-					<img :src="currentCar.imageUrl" />
+					<img :src="currentCar.imageUrl" class="qr-image" />
 				</figure>
 				<div v-show="currentIndex == 5" class="qr-title">
 					СДЕЛАТЬ <br />
