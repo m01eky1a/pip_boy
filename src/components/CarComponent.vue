@@ -52,7 +52,7 @@ export default {
 			cars: [
 				{
 					titleText: "Penetrator - 80's",
-					imageUrl: require("@/assets/car_model/device_ant.gif"),
+					imageUrl: require("@/assets/car_model/tarantula.gif"),
 					paragraphs: [
 						"Год выпуска: 1968 - 1975",
 						"Максимальная скорость: 170 км/ч ",
@@ -62,7 +62,37 @@ export default {
 				},
 				{
 					titleText: "Phantom GT",
-					imageUrl: require("@/assets/car2.gif"),
+					imageUrl: require("@/assets/car_model/hornet.gif"),
+					paragraphs: [
+						"Год выпуска: 1985 - 1990",
+						"Максимальная скорость: 210 км/ч ",
+						"Лошадиные силы: 700",
+						"Расход топлива: 12 л/100 км ",
+					],
+				},
+				{
+					titleText: "Phantom GT",
+					imageUrl: require("@/assets/car_model/cricket.gif"),
+					paragraphs: [
+						"Год выпуска: 1985 - 1990",
+						"Максимальная скорость: 210 км/ч ",
+						"Лошадиные силы: 700",
+						"Расход топлива: 12 л/100 км ",
+					],
+				},
+				{
+					titleText: "Phantom GT",
+					imageUrl: require("@/assets/car_model/bowie.gif"),
+					paragraphs: [
+						"Год выпуска: 1985 - 1990",
+						"Максимальная скорость: 210 км/ч ",
+						"Лошадиные силы: 700",
+						"Расход топлива: 12 л/100 км ",
+					],
+				},
+				{
+					titleText: "Phantom GT",
+					imageUrl: require("@/assets/car_model/ant.gif"),
 					paragraphs: [
 						"Год выпуска: 1985 - 1990",
 						"Максимальная скорость: 210 км/ч ",
